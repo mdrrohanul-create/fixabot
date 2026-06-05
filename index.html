@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixa Bots - Next-Gen Trading Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-glow: #060b13;
+            --bg-card: rgba(15, 23, 42, 0.6);
+            --primary-glow: #00f2fe;
+            --accent-glow: #00ff87;
+            --text-main: #ffffff;
+            --text-sub: #94a3b8;
+            --error-glow: #ff4757;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Poppins, sans-serif;
+            background-color: var(--bg-glow);
+            background-image: 
+                radial-gradient(circle at top right, rgba(0, 242, 254, 0.05), transparent 400px),
+                radial-gradient(circle at bottom left, rgba(0, 255, 135, 0.05), transparent 400px);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 60px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .main-logo {
+            max-width: 320px;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.3));
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff 0%, var(--text-sub) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-sub);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            align-items: stretch;
+        }
+
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 242, 254, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 242, 254, 0.08);
+        }
+
+        .card.featured {
+            border: 2px solid #00f2fe;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.15);
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(6, 11, 19, 0.9) 100%);
+        }
+
+        .card.featured:hover {
+            box-shadow: 0 0 40px rgba(0, 242, 254, 0.25);
+            border-color: var(--accent-glow);
+        }
+
+        .tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary-glow), #0072ff);
+            color: #000;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+        }
+
+        .card-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .card.featured .card-title {
+            background: linear-gradient(90deg, var(--primary-glow), var(--accent-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .price-container {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .old-price {
+            font-size: 1.3rem;
+            color: var(--text-sub);
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .current-price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .timer-box {
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid rgba(255, 71, 87, 0.2);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .timer-label {
+            font-size: 0.75rem;
+            color: var(--error-glow);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .timer-countdown {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 35px;
+            flex-grow: 1;
+        }
+
+        .features-list li {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.4;
+        }
+
+        .features-list li::before {
+            content: "✦";
+            color: var(--primary-glow);
+            font-weight: 700;
+        }
+
+        .card.featured .features-list li::before {
+            color: var(--accent-glow);
+        }
+
+        .btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 24px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .card.featured .btn {
+            background: linear-gradient(135deg, var(--primary-glow) 0%, #0072ff 100%);
+            color: #000;
+            border: none;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(0, 242, 254, 0.2);
+        }
+
+        .card.featured .btn:hover {
+            background: linear-gradient(135deg, var(--accent-glow) 0%, #00b894 100%);
+            box-shadow: 0 12px 25px rgba(0, 255, 135, 0.3);
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 40px 15px;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Fixa Bots Ecosystem</h1>
+            <p>Deploy institutional-grade automated trading algorithms designed to maximize conversion and profitability.</p>
+        </header>
+
+        <div class="pricing-grid">
+            <!-- Card 1: Fixa Verse 1 -->
+            <div class="card">
+                <div>
+                    <h2 class="card-title">Fixa Verse 1</h2>
+                    <div class="price-container">
+                        <span class="current-price">$60</span>
+                    </div>
+                    <ul class="features-list">
+                        <li>Comprehensive algorithmic setup fine-tuned for high-frequency market trends.</li>
+                        <li>Delivers an exceptional average performance of 6 to 7 highly profitable outcomes out of 10 executions.</li>
+                        <li>Unlock precision-driven Sure Shot signals designed to eliminate market noise.</li>
+                        <li>Streamlined, intuitive dashboard built for rapid deployment.</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/message/Q7XKD23256KEO1" target="_blank" class="btn">Get Now</a>
+            </div>
+
+            <!-- Card 2: Fixa AI Auto Trading (Featured) -->
+            <div class="card featured">
+                <span class="tag">Limited Offer</span>
+                <div>
+                    <h2 class="card-title">Fixa AI Auto Trading</h2>
+                    <div class="price-container">
+                        <span class="old-price">$150</span>
+                        <span class="current-price">$85</span>
+                    </div>
+                    <div class="timer-box">
+                        <div class="timer-label">Flash Sale Ends This Month!</div>
+                        <div id="countdown" class="timer-countdown">25d : 13h : 44m : 14s</div>
+                    </div>
+                    <ul class="features-list">
+                        <li>100% Fully Autonomous AI Trading Engine running around the clock.</li>
+                        <li>Advanced Neural Networks independently analyze micro-market structures and execute instantaneous trades.</li>
+                        <li>Requires zero manual oversight, active technical analysis, or prior trading experience.</li>
+                        <li>Special promotion: Locked at just $85 before returning to the standard $150.</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/message/Q7XKD23256KEO1" target="_blank" class="btn">Get Now</a>
+            </div>
+
+            <!-- Card 3: Fixa Verse 2 -->
+            <div class="card">
+                <div>
+                    <h2 class="card-title">Fixa Verse 2</h2>
+                    <div class="price-container">
+                        <span class="current-price">$75</span>
+                    </div>
+                    <ul class="features-list">
+                        <li>Next-tier upgraded system with deeper layer liquidity tracking.</li>
+                        <li>Access to high-priority VIP signal channels boasting enhanced execution accuracy.</li>
+                        <li>Integrated advanced risk-mitigation protocols to structurally protect your capital.</li>
+                        <li>Includes priority 24/7 technical customer support channels.</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/message/Q7XKD23256KEO1" target="_blank" class="btn">Get Now</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            // Automatically calculate the exact last second of the CURRENT month dynamically
+            const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
+            
+            const timeLeft = endOfMonth - now;
+
+            if (timeLeft <= 0) {
+                document.getElementById("countdown").innerHTML = "Offer Expired!";
+                return;
+            }
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = 
+                `${days}d : ${hours.toString().padStart(2, '0')}h : ${minutes.toString().padStart(2, '0')}m : ${seconds.toString().padStart(2, '0')}s`;
+        }
+
+        // Initialize and update every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
